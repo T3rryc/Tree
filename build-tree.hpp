@@ -4,44 +4,67 @@
 #include <cstring>
 #include <algorithm>
 
+// Class representing a road in the binary tree
 class Road {
 public:
-    int id;
-    char place[100];
-    Road* left;
-    Road* right;
-    int height;
+    int id; // Unique identifier for the road
+    char place[100]; // Name of the place
+    Road* left; // Pointer to the left child
+    Road* right; // Pointer to the right child
+    int height; // Height of the node for balancing
 
+    // Constructor to initialize a road with an id and place
     Road(int id, const char* place) : id(id), left(nullptr), right(nullptr), height(1) {
-        strcpy(this->place, place);
+        strcpy(this->place, place); // Copy the place name
     }
 };
 
+// Class representing a binary tree
 class BinaryTree {
 public:
-    Road* root; // root of the binary tree
+    Road* root; // Root of the binary tree
 
-    BinaryTree() : root(nullptr) {} // constructor
+    // Constructor to initialize the binary tree
+    BinaryTree() : root(nullptr) {}
 
+    // Function to insert a road into the tree
     Road* insert(Road* road, int id, const char* place);
+
+    // Function to delete a road from the tree
     Road* deletion(Road* road, int id);
+
+    // Function to search for a road in the tree
     Road* search(Road* road, int id);
+
+    // Function to find the minimum value node in the tree
     Road* findMin(Road* road);
+
+    // Function to get the height of a node
     int getHeight(Road* road);
+
+    // Function to get the balance factor of a node
     int getBalance(Road* road);
+
+    // Function to perform a right rotation
     Road* rightRotate(Road* y);
+
+    // Function to perform a left rotation
     Road* leftRotate(Road* x);
 };
 
 // Function definitions
+
+// Function to get the height of a node
 int BinaryTree::getHeight(Road* road) {
     return road ? road->height : 0;
 }
 
+// Function to get the balance factor of a node
 int BinaryTree::getBalance(Road* road) {
     return road ? getHeight(road->left) - getHeight(road->right) : 0;
 }
 
+// Function to perform a right rotation
 Road* BinaryTree::rightRotate(Road* y) {
     Road* x = y->left;
     Road* T2 = x->right;
@@ -52,6 +75,7 @@ Road* BinaryTree::rightRotate(Road* y) {
     return x;
 }
 
+// Function to perform a left rotation
 Road* BinaryTree::leftRotate(Road* x) {
     Road* y = x->right;
     Road* T2 = y->left;
@@ -62,6 +86,7 @@ Road* BinaryTree::leftRotate(Road* x) {
     return y;
 }
 
+// Function to insert a road into the tree
 Road* BinaryTree::insert(Road* road, int id, const char* place) {
     if (road == nullptr) {
         return new Road(id, place);
@@ -95,6 +120,7 @@ Road* BinaryTree::insert(Road* road, int id, const char* place) {
     return road;
 }
 
+// Function to delete a road from the tree
 Road* BinaryTree::deletion(Road* road, int id) {
     if (road == nullptr) {
         return road;
@@ -146,6 +172,7 @@ Road* BinaryTree::deletion(Road* road, int id) {
     return road;
 }
 
+// Function to search for a road in the tree
 Road* BinaryTree::search(Road* road, int id) {
     if (road == nullptr || road->id == id) {
         return road;
@@ -156,6 +183,7 @@ Road* BinaryTree::search(Road* road, int id) {
     return search(road->right, id);
 }
 
+// Function to find the minimum value node in the tree
 Road* BinaryTree::findMin(Road* road) {
     while (road->left != nullptr) {
         road = road->left;
