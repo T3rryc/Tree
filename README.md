@@ -7,4 +7,5 @@
 Support actions: Search/retrieal, Insertion, Deletion
 
 The tree shoud be self-balancing.
-- What data should you store inside it ?
+
+Done by Salaheddine Namir & Paul Nowak
